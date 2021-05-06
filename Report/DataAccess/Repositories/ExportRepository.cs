@@ -24,8 +24,9 @@ namespace DataAccess.Repositories
                 .HistoryEntries
                 .Include(h => h.Place)
                 .Where(h => h.PlaceId == placeId
-                            && startDate >= h.ExportDateTime
-                            && endDate <= h.ExportDateTime)
+                            && startDate <= h.ExportDateTime
+                            && endDate >= h.ExportDateTime
+                            )
                 .AsNoTracking().ToListAsync();
         }
 

@@ -21,7 +21,7 @@ namespace Report.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<ReportDto>>> GetAll([FromQuery]int placeId, DateTime startDate, DateTime endDate)
+        public async Task<ActionResult<IList<ReportDto>>> GetExportHistory([FromQuery]int placeId, DateTime startDate, DateTime endDate)
         {
             var query = new GetReportExportsQuery(endDate, startDate, placeId);
 
