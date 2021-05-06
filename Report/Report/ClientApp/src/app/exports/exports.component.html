@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-md-2">
+    <div class="form-group m-2">
+      <div class="form-group">
+        <label for="startDate">Start date</label>
+        <div class="input-group">
+          <input
+            id="startDate"
+            class="form-control form-control-sm"
+            placeholder="yyyy-mm-dd"
+            name="dp"
+            [(ngModel)]="startDate"
+            ngbDatepicker
+            #dpStart="ngbDatepicker"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary btn-sm calendar"
+              (click)="dpStart.toggle()"
+              type="button"
+            ></button>
+          </div>
+        </div>
+      </div>
+      <label for="endDate">End date</label>
+      <div class="input-group">
+        
+        <input
+          id="endDate"
+          class="form-control form-control-sm"
+          placeholder="yyyy-mm-dd"
+          name="dp"
+          [(ngModel)]="endDate"
+          ngbDatepicker
+          #dpEnd="ngbDatepicker"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary calendar btn-sm"
+            (click)="dpEnd.toggle()"
+            type="button"
+          ></button>
+        </div>
+      </div>
+    </div>
+    <form class="form-group m-2" [formGroup]="form" (ngSubmit)="submit()">
+      <label for="places">Place</label>
+      <select
+        class="form-control form-control-sm"
+        formControlName="places"
+        id="places"
+        [(ngModel)]="selectedPlace"
+      >
+        <option
+          *ngFor="let place of places; let i = index"
+          [value]="places[i].id"
+        >
+          {{ places[i].name }}
+        </option>
+      </select>
+
+      <button type="submit" class="btn btn-primary btn-sm btn-block mt-1">
+        Submit
+      </button>
+    </form>
+  </div>
+
+  <div class="col-md-10">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Date</th>
+          <th scope="col">Time</th>
+          <th scope="col">Place</th>
+          <th scope="col">User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of ExportHistory">
+          <td scope="row">{{ entry.name }}</td>
+          <td>{{ entry.dateTime | date : 'yyyy-MM-dd'}}</td>
+          <td>{{ entry.dateTime | date : 'HH:mm'}}</td>
+          <td>{{ entry.user }}</td>
+          <td scope="row">{{ entry.place }}</td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,32 +1,26 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
-import { RouterModule } from "@angular/router";
-
-import { AppComponent } from "./app.component";
-import { NavMenuComponent } from "./nav-menu/nav-menu.component";
-import { HomeComponent } from "./home/home.component";
-import { ExportHistoryComponent } from "./export-history/export-history.component";
-import { ApiService } from "./service/api.service";
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ApiService } from './services/api.service';
+import { ExportsComponent } from './exports/exports.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    ExportHistoryComponent,
-  ],
+  declarations: [AppComponent, ExportsComponent, PageNotFoundComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
-    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: "", component: HomeComponent, pathMatch: "full" },
-      { path: "exporthistory", component: ExportHistoryComponent },
-    ]),
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [ApiService],
+  providers: [ApiService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

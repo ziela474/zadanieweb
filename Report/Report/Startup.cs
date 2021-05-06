@@ -47,6 +47,10 @@ namespace Report
 
             services.AddMediatR(AppDomain.CurrentDomain.Load("App"));
             services.AddTransient<IExportRepository, ExportRepository>();
+            services.AddCors(o =>
+            {
+                o.AddPolicy("allow origin", b => b.AllowAnyOrigin());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

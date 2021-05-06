@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using App.Dtos;
@@ -21,9 +22,12 @@ namespace Report.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<ReportDto>>> GetExportHistory([FromQuery]int placeId, DateTime startDate, DateTime endDate)
+        public async Task<ActionResult<IList<ReportDto>>> GetExportHistory([FromQuery] int placeId, string startDate, string endDate)
         {
-            var query = new GetReportExportsQuery(endDate, startDate, placeId);
+            var format = "yyyy-MM-dd";
+            var query = new GetReportExportsQuery(DateTime.ParseExact(endDate, format, CultureInfo.CurrentCulture),
+                DateTime.ParseExact(startDate, format, CultureInfo.CurrentCulture), 
+                placeId);
 
             var result = await _mediator.Send(query);
 

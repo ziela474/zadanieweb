@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "./../../environments/environment";
-import { concat, Observable, throwError } from "rxjs";
-import { Place } from "../models/models";
-import { ExportHistoryEntry } from "../models/models";
+import { Observable } from "rxjs";
+import { Place } from "../models/Place";
+import { ExportHistoryEntry } from "../models/ExportHistoryEntry";
 
 @Injectable({
   providedIn: "root",
@@ -19,20 +19,21 @@ export class ApiService {
     }),
   };
   getAllPlaces(): Observable<Place[]> {
-    return this.http.get<Place[]>(environment.apiUrl + this.getAllPlaces);
+    let url = environment.apiUrl + this.getAllPlacesEndpoint;
+    console.log(url);
+    return this.http.get<Place[]>(url);
   }
 
   getExportHistory(
     placeId: number,
-    startDate: Date,
-    endDate: Date
+    startDate: string,
+    endDate: string
   ): Observable<ExportHistoryEntry[]> {
     let url =
       environment.apiUrl +
       this.getExportHistoryEndpoint +
       `?placeId=${placeId}&startDate=${startDate}&endDate=${endDate}`;
-    return this.http.get<ExportHistoryEntry[]>(
-      environment.apiUrl + this.getExportHistoryEndpoint
-    );
+      console.log(url);
+    return this.http.get<ExportHistoryEntry[]>(url);
   }
 }
